@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/6bc4f42c-9df9-42d8-ad22-be74be64ee58
+
 Music+ 🎵
 
 Bem-vindo ao Music+, um aplicativo moderno e elegante de player de música, desenvolvido com React Native e Expo.
@@ -21,7 +25,13 @@ Este projeto apresenta uma interface premium com efeitos de glassmorphism, anima
 
 ---
 ## 📱 Imagens do projeto.
-![Vídeo do WhatsApp de 2025-11-23 à(s) 16 29 43_afffce8b](https://github.com/user-attachments/assets/ac66a2df-2e38-499c-b5a6-ca4ed42d89ba)
+
+
+
+https://github.com/user-attachments/assets/a7679a38-fef1-4db8-ab68-72b56c8cc5c0
+
+
+
 ## 🚀 Get Started
 
 1. **Install dependencies**
