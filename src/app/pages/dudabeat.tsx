@@ -68,9 +68,8 @@ const DudaBeat = () => {
 
   useEffect(() => { if (currentSong) playSong(currentSong); }, [currentSong]);
 
-  const handleShufflePlay = () => {
-    const randomIndex = Math.floor(Math.random() * allDudaBeatSongs.length);
-    setCurrentSong(allDudaBeatSongs[randomIndex]);
+  const handlePlay = () => {
+    setCurrentSong(allDudaBeatSongs[0]);
   };
 
   const handleNext = () => {
@@ -128,10 +127,10 @@ const DudaBeat = () => {
                     </View>
                     <Text style={styles.artistName}>Duda Beat</Text>
                     <Text style={styles.artistRole}>Cantora / Compositora</Text>
-                    <TouchableOpacity style={styles.playButton} onPress={handleShufflePlay}>
+                    <TouchableOpacity style={styles.playButton} onPress={handlePlay}>
                       <LinearGradient colors={["#EC4899", "#DB2777"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.playButtonGradient}>
-                        <Ionicons name="shuffle" size={20} color={COLORS.white} />
-                        <Text style={styles.playButtonText}>Shuffle Play</Text>
+                        <Ionicons name="play" size={20} color={COLORS.white} />
+                        <Text style={styles.playButtonText}>Play</Text>
                       </LinearGradient>
                     </TouchableOpacity>
                   </View>

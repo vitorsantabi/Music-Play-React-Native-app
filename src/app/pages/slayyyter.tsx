@@ -55,7 +55,7 @@ const Slayyyter = () => {
 
   useEffect(() => { if (currentSong) playSong(currentSong); }, [currentSong]);
 
-  const handleShufflePlay = () => { setCurrentSong(allSlayyyterSongs[Math.floor(Math.random() * allSlayyyterSongs.length)]); };
+  const handlePlay = () => { setCurrentSong(allSlayyyterSongs[0]); };
   const handleNext = () => { if (!currentSong) return; const i = allSlayyyterSongs.findIndex(s => s.id === currentSong.id); setCurrentSong(allSlayyyterSongs[(i + 1) % allSlayyyterSongs.length]); };
   const handlePrevious = () => { if (!currentSong) return; const i = allSlayyyterSongs.findIndex(s => s.id === currentSong.id); setCurrentSong(allSlayyyterSongs[(i - 1 + allSlayyyterSongs.length) % allSlayyyterSongs.length]); };
   const handlePlayPause = async () => { if (!sound) return; if (isPlaying) { await sound.pauseAsync(); setIsPlaying(false); } else { await sound.playAsync(); setIsPlaying(true); } };
@@ -85,9 +85,9 @@ const Slayyyter = () => {
                     <View style={styles.tagContainer}><Ionicons name="musical-note" size={12} color={COLORS.white} /><Text style={styles.tagText}>Artist Spotlight</Text></View>
                     <Text style={styles.artistName}>Slayyyter</Text>
                     <Text style={styles.artistRole}>Cantora / Produtora</Text>
-                    <TouchableOpacity style={styles.playButton} onPress={handleShufflePlay}>
+                    <TouchableOpacity style={styles.playButton} onPress={handlePlay}>
                       <LinearGradient colors={["#EC4899", "#DB2777"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.playButtonGradient}>
-                        <Ionicons name="shuffle" size={20} color={COLORS.white} /><Text style={styles.playButtonText}>Shuffle Play</Text>
+                        <Ionicons name="play" size={20} color={COLORS.white} /><Text style={styles.playButtonText}>Play</Text>
                       </LinearGradient>
                     </TouchableOpacity>
                   </View>

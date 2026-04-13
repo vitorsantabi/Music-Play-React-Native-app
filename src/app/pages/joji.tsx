@@ -1,5 +1,4 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { Audio } from "expo-av";
 import { BlurView } from "expo-blur";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
@@ -11,7 +10,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { usePoppinsFonts } from "@/components/fonts/PoppinsFonts";
 import MediaItem from "@/components/ui/MediaItem";
 import { BORDER_RADIUS, COLORS, FONTS, SPACING, SHADOWS } from "@/constants/theme";
-import { allJojiSongs, Song } from "@/data/jojiDataMusic";
+import { allJojiSongs } from "@/data/jojiDataMusic";
+import { useAudio } from "@/contexts/AudioContext";
+import { usePathname } from "expo-router";
 
 const bgImage = require("@/images/bgJoji.jpg");
 const nectar = require("@/images/joji/nectar.png");
@@ -20,9 +21,8 @@ const smithereens = require("@/images/joji/Smithereens.png");
 const Joji = () => {
   const [fontsLoaded] = usePoppinsFonts();
   const router = useRouter();
-  const [currentSong, setCurrentSong] = useState<Song | null>(null);
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const pathname = usePathname();
+  const audio = useAudio();
 
   const heroOpacity = useRef(new Animated.Value(0)).current;
   const heroScale = useRef(new Animated.Value(0.95)).current;
@@ -42,26 +42,20 @@ const Joji = () => {
     }
   }, [fontsLoaded]);
 
-  useEffect(() => { return () => { if (sound) sound.unloadAsync(); }; }, [sound]);
-
-  const playSong = async (song: Song) => {
-    try {
-      if (sound) await sound.unloadAsync();
-      const { sound: newSound } = await Audio.Sound.createAsync(song.uri);
-      setSound(newSound); await newSound.playAsync(); setIsPlaying(true);
-      newSound.setOnPlaybackStatusUpdate((status) => { if (status.isLoaded && status.didJustFinish) { setIsPlaying(false); handleNext(); } });
-    } catch (error) { console.error("Error playing sound", error); }
-  };
-
-  useEffect(() => { if (currentSong) playSong(currentSong); }, [currentSong]);
-
-  const handleShufflePlay = () => { setCurrentSong(allJojiSongs[Math.floor(Math.random() * allJojiSongs.length)]); };
-  const handleNext = () => { if (!currentSong) return; const i = allJojiSongs.findIndex(s => s.id === currentSong.id); setCurrentSong(allJojiSongs[(i + 1) % allJojiSongs.length]); };
-  const handlePrevious = () => { if (!currentSong) return; const i = allJojiSongs.findIndex(s => s.id === currentSong.id); setCurrentSong(allJojiSongs[(i - 1 + allJojiSongs.length) % allJojiSongs.length]); };
-  const handlePlayPause = async () => { if (!sound) return; if (isPlaying) { await sound.pauseAsync(); setIsPlaying(false); } else { await sound.playAsync(); setIsPlaying(true); } };
-
-  const getAlbumImage = (albumName: string) => {
-    switch (albumName) { case "Nectar": return nectar; case "SMITHEREENS": return smithereens; default: return bgImage; }
+  const handlePlay = () => {
+    const tracks = allJojiSongs.map((song) => ({
+      name: song.title,
+      source: song.uri,
+    }));
+    audio.loadAlbum({
+      tracks,
+      trackIndex: 0,
+      albumTitle: "Joji Mix",
+      artistName: "Joji",
+      albumCover: bgImage, // Usa o perfil do artista como capa temporária
+      accentColors: ["#6366F1", "#4F46E5"] as const,
+      albumLink: pathname,
+    });
   };
 
   if (!fontsLoaded) return null;
@@ -76,7 +70,7 @@ const Joji = () => {
             <TouchableOpacity style={styles.iconButton} onPress={() => router.back()}><Ionicons name="chevron-back" size={24} color={COLORS.white} /></TouchableOpacity>
             <TouchableOpacity style={styles.iconButton}><Ionicons name="heart-outline" size={24} color={COLORS.white} /></TouchableOpacity>
           </View>
-          <ScrollView contentContainerStyle={[styles.scrollContent, currentSong && { paddingBottom: 100 }]} showsVerticalScrollIndicator={false}>
+          <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
             <Animated.View style={[styles.featuredContainer, { opacity: heroOpacity, transform: [{ scale: heroScale }] }]}>
               <View style={styles.featuredCard}>
                 <ImageBackground source={bgImage} style={styles.featuredBackground} imageStyle={{ borderRadius: BORDER_RADIUS.l }}>
@@ -85,9 +79,9 @@ const Joji = () => {
                     <View style={styles.tagContainer}><Ionicons name="musical-note" size={12} color={COLORS.white} /><Text style={styles.tagText}>Artist Spotlight</Text></View>
                     <Text style={styles.artistName}>Joji</Text>
                     <Text style={styles.artistRole}>Cantor / Produtor</Text>
-                    <TouchableOpacity style={styles.playButton} onPress={handleShufflePlay}>
+                    <TouchableOpacity style={styles.playButton} onPress={handlePlay}>
                       <LinearGradient colors={["#6366F1", "#4F46E5"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.playButtonGradient}>
-                        <Ionicons name="shuffle" size={20} color={COLORS.white} /><Text style={styles.playButtonText}>Shuffle Play</Text>
+                        <Ionicons name="play" size={20} color={COLORS.white} /><Text style={styles.playButtonText}>Play</Text>
                       </LinearGradient>
                     </TouchableOpacity>
                   </View>
@@ -110,21 +104,6 @@ const Joji = () => {
               </ScrollView>
             </Animated.View>
           </ScrollView>
-
-          {currentSong && (
-            <BlurView intensity={90} tint="dark" style={styles.miniPlayer}>
-              <View style={styles.miniPlayerContent}>
-                <Image source={getAlbumImage(currentSong.album)} style={styles.miniPlayerImage} contentFit="cover" />
-                <View style={styles.miniPlayerInfo}><Text style={styles.miniPlayerTitle} numberOfLines={1}>{currentSong.title}</Text><Text style={styles.miniPlayerArtist}>{currentSong.album}</Text></View>
-                <View style={styles.miniPlayerControls}>
-                  <TouchableOpacity onPress={handlePrevious}><Ionicons name="play-skip-back" size={22} color={COLORS.white} /></TouchableOpacity>
-                  <TouchableOpacity style={styles.miniPlayButton} onPress={handlePlayPause}><Ionicons name={isPlaying ? "pause" : "play"} size={22} color={COLORS.black} /></TouchableOpacity>
-                  <TouchableOpacity onPress={handleNext}><Ionicons name="play-skip-forward" size={22} color={COLORS.white} /></TouchableOpacity>
-                </View>
-              </View>
-              <LinearGradient colors={["#6366F1", "#4F46E5"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={[styles.progressFill, { width: isPlaying ? "100%" : "0%" }]} />
-            </BlurView>
-          )}
         </SafeAreaView>
       </ImageBackground>
     </View>
@@ -156,15 +135,6 @@ const styles = StyleSheet.create({
   bioContainer: { padding: SPACING.m, borderRadius: BORDER_RADIUS.m, backgroundColor: "rgba(255,255,255,0.06)", borderWidth: 1, borderColor: "rgba(255,255,255,0.06)" },
   bioText: { fontFamily: FONTS.regular, fontSize: 14, color: "rgba(255,255,255,0.8)", lineHeight: 22 },
   albumsList: { paddingRight: SPACING.m },
-  miniPlayer: { position: "absolute", bottom: 0, left: 0, right: 0, height: 80, borderTopLeftRadius: BORDER_RADIUS.l, borderTopRightRadius: BORDER_RADIUS.l, overflow: "hidden", borderTopWidth: 1, borderTopColor: "rgba(255,255,255,0.08)" },
-  miniPlayerContent: { flexDirection: "row", alignItems: "center", padding: SPACING.m, height: "100%" },
-  miniPlayerImage: { width: 48, height: 48, borderRadius: BORDER_RADIUS.s, marginRight: SPACING.m },
-  miniPlayerInfo: { flex: 1, justifyContent: "center" },
-  miniPlayerTitle: { color: COLORS.white, fontFamily: FONTS.semiBold, fontSize: 14, marginBottom: 2 },
-  miniPlayerArtist: { color: COLORS.textSecondary, fontFamily: FONTS.regular, fontSize: 12 },
-  miniPlayerControls: { flexDirection: "row", alignItems: "center", gap: SPACING.m },
-  miniPlayButton: { width: 38, height: 38, borderRadius: 19, backgroundColor: COLORS.white, justifyContent: "center", alignItems: "center" },
-  progressFill: { position: "absolute", bottom: 0, left: 0, height: 2 },
 });
 
 export default Joji;

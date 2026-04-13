@@ -119,9 +119,8 @@ const Marina = () => {
     }
   };
 
-  const handleShufflePlay = () => {
-    const randomIndex = Math.floor(Math.random() * marinaSongs.length);
-    setCurrentSong(marinaSongs[randomIndex]);
+  const handlePlay = () => {
+    setCurrentSong(marinaSongs[0]);
   };
 
   const handleNext = () => {
@@ -221,7 +220,7 @@ const Marina = () => {
 
                     <TouchableOpacity
                       style={styles.playButton}
-                      onPress={handleShufflePlay}
+                      onPress={handlePlay}
                     >
                       <LinearGradient
                         colors={COLORS.gradient.hero as unknown as string[]}
@@ -230,11 +229,11 @@ const Marina = () => {
                         style={styles.playButtonGradient}
                       >
                         <Ionicons
-                          name="shuffle"
+                          name="play"
                           size={20}
                           color={COLORS.white}
                         />
-                        <Text style={styles.playButtonText}>Shuffle Play</Text>
+                        <Text style={styles.playButtonText}>Play</Text>
                       </LinearGradient>
                     </TouchableOpacity>
                   </View>

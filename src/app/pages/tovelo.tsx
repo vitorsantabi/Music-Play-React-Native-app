@@ -55,7 +55,7 @@ const ToveLo = () => {
 
   useEffect(() => { if (currentSong) playSong(currentSong); }, [currentSong]);
 
-  const handleShufflePlay = () => { setCurrentSong(allToveLoSongs[Math.floor(Math.random() * allToveLoSongs.length)]); };
+  const handlePlay = () => { setCurrentSong(allToveLoSongs[0]); };
   const handleNext = () => { if (!currentSong) return; const i = allToveLoSongs.findIndex(s => s.id === currentSong.id); setCurrentSong(allToveLoSongs[(i + 1) % allToveLoSongs.length]); };
   const handlePrevious = () => { if (!currentSong) return; const i = allToveLoSongs.findIndex(s => s.id === currentSong.id); setCurrentSong(allToveLoSongs[(i - 1 + allToveLoSongs.length) % allToveLoSongs.length]); };
   const handlePlayPause = async () => { if (!sound) return; if (isPlaying) { await sound.pauseAsync(); setIsPlaying(false); } else { await sound.playAsync(); setIsPlaying(true); } };
@@ -85,9 +85,9 @@ const ToveLo = () => {
                     <View style={styles.tagContainer}><Ionicons name="musical-note" size={12} color={COLORS.white} /><Text style={styles.tagText}>Artist Spotlight</Text></View>
                     <Text style={styles.artistName}>Tove Lo</Text>
                     <Text style={styles.artistRole}>Cantora / Compositora</Text>
-                    <TouchableOpacity style={styles.playButton} onPress={handleShufflePlay}>
+                    <TouchableOpacity style={styles.playButton} onPress={handlePlay}>
                       <LinearGradient colors={["#14B8A6", "#0D9488"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.playButtonGradient}>
-                        <Ionicons name="shuffle" size={20} color={COLORS.white} /><Text style={styles.playButtonText}>Shuffle Play</Text>
+                        <Ionicons name="play" size={20} color={COLORS.white} /><Text style={styles.playButtonText}>Play</Text>
                       </LinearGradient>
                     </TouchableOpacity>
                   </View>

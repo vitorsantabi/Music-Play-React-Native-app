@@ -2,7 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   ScrollView,
@@ -37,6 +37,7 @@ const RECENTLY_PLAYED = ALBUMS.slice(0, 6);
 
 export default function App() {
   const [fontsLoaded] = usePoppinsFonts();
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Animated values for staggered fade-in
   const headerOpacity = useRef(new Animated.Value(0)).current;
@@ -98,7 +99,7 @@ export default function App() {
           <View style={styles.headerLeft}>
             <View style={styles.logoContainer}>
               <LinearGradient
-                colors={COLORS.gradient.hero as unknown as string[]}
+                colors={COLORS.gradient.hero}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.logoGradient}
@@ -115,7 +116,7 @@ export default function App() {
           <View style={styles.headerRight}>
             <View style={styles.avatarContainer}>
               <LinearGradient
-                colors={COLORS.gradient.hero as unknown as string[]}
+                colors={COLORS.gradient.hero}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.avatarRing}
@@ -137,92 +138,135 @@ export default function App() {
             transform: [{ translateY: searchTranslate }],
           }}
         >
-          <SearchBar />
+          <SearchBar
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
         </Animated.View>
 
-        {/* Recently Played Grid */}
-        <Animated.View
-          style={{
-            opacity: recentOpacity,
-            transform: [{ translateY: recentTranslate }],
-          }}
-        >
-          <SectionHeader
-            title="Tocado Recentemente"
-            icon="time"
-            accentColor={COLORS.secondary}
-          />
-          <View style={styles.recentGrid}>
-            {RECENTLY_PLAYED.map((item) => (
-              <RecentlyPlayedCard
-                key={item.id}
-                imageUri={item.image}
-                title={item.title}
-                linkHref={item.link}
-              />
-            ))}
-          </View>
-        </Animated.View>
+        {(() => {
+          const lowerQuery = searchQuery.toLowerCase();
+          const filteredRecent = RECENTLY_PLAYED.filter(item => 
+            item.title.toLowerCase().includes(lowerQuery) ||
+            item.sub.toLowerCase().includes(lowerQuery)
+          );
+          const filteredArtists = ARTISTS.filter(artist => 
+            artist.title.toLowerCase().includes(lowerQuery)
+          );
+          const filteredAlbums = ALBUMS.filter(album => 
+            album.title.toLowerCase().includes(lowerQuery) ||
+            album.sub.toLowerCase().includes(lowerQuery)
+          );
 
-        {/* Artists Section */}
-        <Animated.View
-          style={{
-            opacity: artistsOpacity,
-            transform: [{ translateY: artistsTranslate }],
-            marginTop: SPACING.l,
-          }}
-        >
-          <SectionHeader
-            title="Artistas"
-            icon="person"
-            accentColor={COLORS.accent}
-          />
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.horizontalList}
-          >
-            {ARTISTS.map((artist) => (
-              <ArtistCard
-                key={artist.id}
-                imageUri={artist.image}
-                title={artist.title}
-                linkHref={artist.link}
-              />
-            ))}
-          </ScrollView>
-        </Animated.View>
+          const hasNoResults = searchQuery.trim() !== "" && filteredRecent.length === 0 && filteredArtists.length === 0 && filteredAlbums.length === 0;
 
-        {/* Albums Section */}
-        <Animated.View
-          style={{
-            opacity: albumsOpacity,
-            transform: [{ translateY: albumsTranslate }],
-            marginTop: SPACING.l,
-          }}
-        >
-          <SectionHeader
-            title="Álbuns + Ouvidos"
-            icon="disc"
-            accentColor={COLORS.primary}
-          />
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.horizontalList}
-          >
-            {ALBUMS.map((album) => (
-              <MediaItem
-                key={album.id}
-                imageUri={album.image}
-                title={album.title}
-                sub={album.sub}
-                linkHref={album.link}
-                variant="album"
-              />
-            ))}
-          </ScrollView>
-        </Animated.View>
+          return (
+            <>
+              {/* Recently Played Grid */}
+              {filteredRecent.length > 0 && (
+                <Animated.View
+                  style={{
+                    opacity: recentOpacity,
+                    transform: [{ translateY: recentTranslate }],
+                  }}
+                >
+                  <SectionHeader
+                    title="Tocado Recentemente"
+                    icon="time"
+                    accentColor={COLORS.secondary}
+                  />
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.horizontalList}
+                  >
+                    {filteredRecent.map((item) => (
+                      <RecentlyPlayedCard
+                        key={item.id}
+                        imageUri={item.image}
+                        title={item.title}
+                        subtitle={item.sub}
+                        linkHref={item.link}
+                      />
+                    ))}
+                  </ScrollView>
+                </Animated.View>
+              )}
+
+              {/* Artists Section */}
+              {filteredArtists.length > 0 && (
+                <Animated.View
+                  style={{
+                    opacity: artistsOpacity,
+                    transform: [{ translateY: artistsTranslate }],
+                    marginTop: SPACING.l,
+                  }}
+                >
+                  <SectionHeader
+                    title="Artistas"
+                    icon="person"
+                    accentColor={COLORS.accent}
+                  />
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.horizontalList}
+                  >
+                    {filteredArtists.map((artist) => (
+                      <ArtistCard
+                        key={artist.id}
+                        imageUri={artist.image}
+                        title={artist.title}
+                        linkHref={artist.link}
+                      />
+                    ))}
+                  </ScrollView>
+                </Animated.View>
+              )}
+
+              {/* Albums Section */}
+              {filteredAlbums.length > 0 && (
+                <Animated.View
+                  style={{
+                    opacity: albumsOpacity,
+                    transform: [{ translateY: albumsTranslate }],
+                    marginTop: SPACING.l,
+                  }}
+                >
+                  <SectionHeader
+                    title="Álbuns + Ouvidos"
+                    icon="disc"
+                    accentColor={COLORS.primary}
+                  />
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.horizontalList}
+                  >
+                    {filteredAlbums.map((album) => (
+                      <MediaItem
+                        key={album.id}
+                        imageUri={album.image}
+                        title={album.title}
+                        sub={album.sub}
+                        linkHref={album.link}
+                        variant="album"
+                      />
+                    ))}
+                  </ScrollView>
+                </Animated.View>
+              )}
+
+              {hasNoResults && (
+                <View style={{ alignItems: 'center', marginTop: 40 }}>
+                  <Text style={{ color: COLORS.textMuted, fontFamily: FONTS.medium, fontSize: 16 }}>
+                    Nenhum resultado encontrado para "{searchQuery}"
+                  </Text>
+                </View>
+              )}
+            </>
+          );
+        })()}
 
         <View style={styles.footerSpacer} />
       </ScrollView>
@@ -294,11 +338,7 @@ const styles = StyleSheet.create({
     borderRadius: 20.5,
     backgroundColor: COLORS.surface,
   },
-  recentGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    paddingHorizontal: SPACING.l - SPACING.xs,
-  },
+
   horizontalList: {
     paddingHorizontal: SPACING.l - SPACING.s,
     paddingVertical: SPACING.s,
