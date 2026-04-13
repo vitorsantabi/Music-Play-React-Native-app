@@ -24,7 +24,10 @@ Este projeto apresenta uma interface premium com efeitos de glassmorphism, anima
 
 
 
-https://github.com/user-attachments/assets/a7679a38-fef1-4db8-ab68-72b56c8cc5c0
+
+
+https://github.com/user-attachments/assets/8097f803-bc43-40d2-b8df-6ee3436659ed
+
 
 
 
