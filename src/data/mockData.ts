@@ -1,0 +1,105 @@
+export const ALBUMS = [
+    {
+        id: "1",
+        title: "Sinto Muito",
+        sub: "Duda Beat",
+        image: require("@/images/dudabeat/sinto.avif"),
+        link: "/play/sintomuito",
+    },
+    {
+        id: "2",
+        title: "Nectar",
+        sub: "Joji",
+        image: require("@/images/joji/nectar.png"),
+        link: "/play/nectar",
+    },
+    {
+        id: "3",
+        title: "Esse Delírio vol.1",
+        sub: "Duda Beat",
+        image: require("@/images/dudabeat/essedelerio.avif"),
+        link: "/play/essedelirio",
+    },
+    {
+        id: "4",
+        title: "Princess of Power",
+        sub: "Marina",
+        image: require("@/images/marina/PrincessofPower.png"),
+        link: "/play/princessofpower",
+    },
+    {
+        id: "5",
+        title: "STARFUCKER",
+        sub: "Slayyyter",
+        image: require("@/images/slayyyyter/slayyyteralbum.avif"),
+        link: "/play/starfucker",
+    },
+    {
+        id: "6",
+        title: "Smithereens",
+        sub: "Joji",
+        image: require("@/images/joji/Smithereens.png"),
+        link: "/play/smithereens",
+    },
+    {
+        id: "7",
+        title: "The Family Jewels",
+        sub: "Marina",
+        image: require("@/images/marina/Malbumum.jpg"),
+        link: "/play/familyjewels",
+    },
+    {
+        id: "8",
+        title: "Sunshine Kitty",
+        sub: "Tove Lo",
+        image: require("@/images/tovelo/sunshinekitty.avif"),
+        link: "/play/sunshinekitty",
+    },
+    {
+        id: "9",
+        title: "Troubled Paradise",
+        sub: "Slayyyter",
+        image: require("@/images/slayyyyter/trouble.avif"),
+        link: "/play/troubledparadise",
+    },
+    {
+        id: "10",
+        title: "Dirt Femme",
+        sub: "Tove Lo",
+        image: require("@/images/tovelo/dirty.avif"),
+        link: "/play/dirtfemme",
+    },
+];
+
+export const ARTISTS = [
+    {
+        id: "1",
+        title: "Marina",
+        image: require("@/images/MarinaAvatar.avif"),
+        link: "/pages/Marina",
+    },
+    {
+        id: "2",
+        title: "Joji",
+        image: require("@/images/jojiIcon.webp"),
+        link: "/pages/joji",
+    },
+    {
+        id: "3",
+        title: "Duda Beat",
+        image: require("@/images/dudaIcon.jpg"),
+        link: "/pages/dudabeat",
+    },
+    {
+        id: "4",
+        title: "Slayyyter",
+        image: require("@/images/slayyyterIcon.webp"),
+        link: "/pages/slayyyter",
+    },
+    {
+        id: "5",
+        title: "Tove Lo",
+        image: require("@/images/iconTovelo.png"),
+        link: "/pages/tovelo",
+    },
+];

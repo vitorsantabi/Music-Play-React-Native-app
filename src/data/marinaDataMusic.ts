@@ -1,0 +1,223 @@
+export interface Song {
+    id: string;
+    title: string;
+    album: string;
+    duration: string;
+    uri: any;
+}
+
+export const marinaSongs: Song[] = [
+    // Princess of Power
+    {
+        id: "pop-1",
+        title: "Princess of Power",
+        album: "Princess of Power",
+        duration: "3:12",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-01 PRINCESS OF POWER.mp3"),
+    },
+    {
+        id: "pop-2",
+        title: "Butterfly",
+        album: "Princess of Power",
+        duration: "3:25",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-02 BUTTERFLY.mp3"),
+    },
+    {
+        id: "pop-3",
+        title: "Cuntissimo",
+        album: "Princess of Power",
+        duration: "2:58",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-03 CUNTISSIMO.mp3"),
+    },
+    {
+        id: "pop-4",
+        title: "Rollercoaster",
+        album: "Princess of Power",
+        duration: "3:15",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-04 ROLLERCOASTER.mp3"),
+    },
+    {
+        id: "pop-5",
+        title: "Cupids Girl",
+        album: "Princess of Power",
+        duration: "3:08",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-05 CUPIDS GIRL.mp3"),
+    },
+    {
+        id: "pop-6",
+        title: "Metallic Stallion",
+        album: "Princess of Power",
+        duration: "3:30",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-06 METALLIC STALLION.mp3"),
+    },
+    {
+        id: "pop-7",
+        title: "Je Ne Sais Quoi",
+        album: "Princess of Power",
+        duration: "3:18",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-07 JE NE SAIS QUOI.mp3"),
+    },
+    {
+        id: "pop-8",
+        title: "Digital Fantasy",
+        album: "Princess of Power",
+        duration: "3:05",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-08 DIGITAL FANTASY.mp3"),
+    },
+    {
+        id: "pop-9",
+        title: "Everybody Knows I'm Sad",
+        album: "Princess of Power",
+        duration: "3:42",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-09 EVERYBODY KNOWS IM SAD.mp3"),
+    },
+    {
+        id: "pop-10",
+        title: "Hello Kitty",
+        album: "Princess of Power",
+        duration: "3:10",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-10 HELLO KITTY.mp3"),
+    },
+    {
+        id: "pop-12",
+        title: "Adult Girl",
+        album: "Princess of Power",
+        duration: "3:55",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-12 ADULT GIRL.mp3"),
+    },
+    {
+        id: "pop-13",
+        title: "Final Boss",
+        album: "Princess of Power",
+        duration: "4:10",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-13 FINAL BOSS.mp3"),
+    },
+    {
+        id: "pop-14",
+        title: "Sex Is Power",
+        album: "Princess of Power",
+        duration: "4:25",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-14 SEX IS POWER.mp3"),
+    },
+    {
+        id: "pop-15",
+        title: "How To Say Goodbye",
+        album: "Princess of Power",
+        duration: "4:05",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-15 HOW TO SAY GOODBYE.mp3"),
+    },
+    {
+        id: "pop-16",
+        title: "Key To The Castle",
+        album: "Princess of Power",
+        duration: "3:50",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-16 KEY TO THE CASTLE.mp3"),
+    },
+    {
+        id: "pop-17",
+        title: "Unfamiliar Heavens",
+        album: "Princess of Power",
+        duration: "4:15",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-17 UNFAMILIAR HEAVENS.mp3"),
+    },
+    {
+        id: "pop-18",
+        title: "Everybody Knows I'm Sad (Remix)",
+        album: "Princess of Power",
+        duration: "4:30",
+        uri: require("@/albuns/marina/princessofpower/Marina - PRINCESS OF POWER (DELUXE) - 01-18 EVERYBODY KNOWS I'M SAD (REMIX).mp3"),
+    },
+
+    // The Family Jewels
+    {
+        id: "tfj-1",
+        title: "Are You Satisfied?",
+        album: "The Family Jewels",
+        duration: "3:21",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-01 Are You Satisfied_.m4a"),
+    },
+    {
+        id: "tfj-2",
+        title: "Shampain",
+        album: "The Family Jewels",
+        duration: "3:11",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-02 Shampain.m4a"),
+    },
+    {
+        id: "tfj-3",
+        title: "I Am Not a Robot",
+        album: "The Family Jewels",
+        duration: "3:35",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-03 I Am Not a Robot.m4a"),
+    },
+    {
+        id: "tfj-4",
+        title: "Girls",
+        album: "The Family Jewels",
+        duration: "3:28",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-04 Girls.m4a"),
+    },
+    {
+        id: "tfj-5",
+        title: "Mowgli's Road",
+        album: "The Family Jewels",
+        duration: "3:12",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-05 Mowglis Road.m4a"),
+    },
+    {
+        id: "tfj-6",
+        title: "Obsessions",
+        album: "The Family Jewels",
+        duration: "3:38",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-06 Obsessions.m4a"),
+    },
+    {
+        id: "tfj-7",
+        title: "Hollywood",
+        album: "The Family Jewels",
+        duration: "3:24",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-07 Hollywood (Single Version).m4a"),
+    },
+    {
+        id: "tfj-8",
+        title: "The Outsider",
+        album: "The Family Jewels",
+        duration: "3:17",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-08 The Outsider.m4a"),
+    },
+    {
+        id: "tfj-9",
+        title: "Guilty",
+        album: "The Family Jewels",
+        duration: "3:40",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-09 Guilty.m4a"),
+    },
+    {
+        id: "tfj-10",
+        title: "Hermit the Frog",
+        album: "The Family Jewels",
+        duration: "3:35",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-10 Hermit the Frog.m4a"),
+    },
+    {
+        id: "tfj-11",
+        title: "Oh No!",
+        album: "The Family Jewels",
+        duration: "3:02",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-11 Oh No!.m4a"),
+    },
+    {
+        id: "tfj-12",
+        title: "Seventeen",
+        album: "The Family Jewels",
+        duration: "3:05",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-12 Seventeen.m4a"),
+    },
+    {
+        id: "tfj-13",
+        title: "Numb",
+        album: "The Family Jewels",
+        duration: "4:16",
+        uri: require("@/albuns/marina/thefamilyjewels/Marina - The Family Jewels - 01-13 Numb.m4a"),
+    },
+];
